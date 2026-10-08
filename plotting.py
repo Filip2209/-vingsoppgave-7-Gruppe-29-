@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 from datetime import datetime
 
-filnavn = "sinnes_2014_2025_med_makstemperatur.csv"
+filnavn = "sinnes_2014_2025.csv"
 
 årstall = input("Skriv inn et årstall: ")
 
@@ -17,6 +17,8 @@ def gjør_tall(verdi):
         return None
     return float(verdi.replace(",", "."))
 
+
+høyeste_dato = None
 
 with open(filnavn, "r", encoding="UTF-8") as tekstfil:
 
@@ -41,25 +43,32 @@ with open(filnavn, "r", encoding="UTF-8") as tekstfil:
 
         dato = datetime.strptime(dato_tekst, "%d.%m.%Y")
 
+        # Forkaster datoer som er tidligere enn
+        # eller lik den høyeste datoen vi har lest
+        if høyeste_dato is not None and dato <= høyeste_dato:
+            continue
+
+        høyeste_dato = dato
+
         # Sjekker om datoen er fra året brukeren skrev inn
         if dato.year == int(årstall):
 
             datoer.append(dato)
 
-            # Kolonne 4 = middeltemperatur
+            # Middeltemperatur
             middeltemperatur.append(gjør_tall(deler[4]))
 
-            # Kolonne 5 = nedbør
-            nedbør.append(gjør_tall(deler[5]))
+            # Nedbør
+            nedbør.append(gjør_tall(deler[4]))
 
-            # Kolonne 6 = høyeste middelvind
-            middelvind.append(gjør_tall(deler[6]))
+            # Høyeste middelvind
+            middelvind.append(gjør_tall(deler[5]))
 
-            # Kolonne 7 = snødybde
-            snødybde.append(gjør_tall(deler[7]))
+            # Snødybde
+            snødybde.append(gjør_tall(deler[6]))
 
 
-# Lager fire grafer
+# Lager grafene
 plt.figure(figsize=(12, 8))
 
 plt.subplot(4, 1, 1)
