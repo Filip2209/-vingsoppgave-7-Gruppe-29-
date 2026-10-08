@@ -1,0 +1,52 @@
+from datetime import datetime
+
+filnavn = "sinnes_2014_2025_med_makstemperatur.csv"
+
+år = input("Skriv inn årstall: ")
+
+sommerdager = 0
+høysommerdager = 0
+tropedager = 0
+
+
+with open(filnavn, "r", encoding="UTF-8") as fil:
+
+    fil.readline()
+
+    for linje in fil:
+
+        if linje.strip() == "":
+            continue
+
+        deler = linje.strip().split(";")
+
+        if deler[2].strip() == "":
+            continue
+
+        dato = datetime.strptime(deler[2], "%d.%m.%Y")
+
+        if dato.year == int(år):
+
+            temperatur = deler[3].strip()
+
+            # Hopper over manglende temperatur
+            if temperatur == "-":
+                continue
+
+            temperatur = float(temperatur.replace(",", "."))
+
+            if temperatur > 20:
+                sommerdager += 1
+
+            if temperatur > 25:
+                høysommerdager += 1
+                
+            if temperatur > 30:
+                tropedager += 1
+
+
+print()
+print("Resultater for", år)
+print("Sommerdager:", sommerdager)
+print("Høysommerdager:", høysommerdager)
+print("Tropedager:", tropedager)
