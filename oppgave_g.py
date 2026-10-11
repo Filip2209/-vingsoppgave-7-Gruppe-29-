@@ -16,12 +16,9 @@ with open(filnavn, "r", encoding="UTF-8") as fil:
     fil.readline()
 
     for linje in fil:
-
         if linje.strip() == "":
             continue
-
         deler = linje.strip().split(";")
-
         if deler[2].strip() == "":
             continue
 

@@ -29,7 +29,6 @@ with open(filnavn, "r", encoding="UTF-8") as fil:
 
             temperatur = deler[3].strip()
 
-            # Hopper over manglende temperatur
             if temperatur == "-":
                 continue
 
@@ -44,8 +43,6 @@ with open(filnavn, "r", encoding="UTF-8") as fil:
             if temperatur > 30:
                 tropedager += 1
 
-
-print()
 print("Resultater for", år)
 print("Sommerdager:", sommerdager)
 print("Høysommerdager:", høysommerdager)
