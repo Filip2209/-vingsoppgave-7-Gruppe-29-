@@ -3,6 +3,7 @@ from datetime import datetime
 
 filnavn = "sinnes_2014_2025.csv"
 
+
 årstall = input("Skriv inn et årstall: ")
 
 datoer = []
