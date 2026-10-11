@@ -11,19 +11,13 @@ nedbør = []
 middeltemperatur = []
 middelvind = []
 
-sommerdager = 0
-høysommerdager = 0
-tropedager = 0
-
-
+#Tekst om til tall
 def gjør_tall(verdi):
     if verdi == "-":
         return None
     return float(verdi.replace(",", "."))
 
 høyeste_dato = None 
-
-høyeste_dato = None
 
 with open(filnavn, "r", encoding="UTF-8") as tekstfil:
 
@@ -48,69 +42,15 @@ with open(filnavn, "r", encoding="UTF-8") as tekstfil:
 
         høyeste_dato = dato
 
-        # Sjekker om datoen er fra året brukeren skrev inn
         if dato.year == int(årstall):
 
             datoer.append(dato)
 
-            middeltemperatur.append(gjør_tall(deler[4]))
-            nedbør.append(gjør_tall(deler[5]))
-            middelvind.append(gjør_tall(deler[6]))
-            snødybde.append(gjør_tall(deler[7]))
+            middeltemperatur.append(gjør_tall(deler[3]))
+            nedbør.append(gjør_tall(deler[4]))
+            middelvind.append(gjør_tall(deler[5]))
+            snødybde.append(gjør_tall(deler[6]))
 
-
-
-            maks_temp = gjør_tall(deler[3])
-
-            if maks_temp is not None:
-                if maks_temp > 20:
-                    sommerdager += 1
-
-                if maks_temp > 25:
-                    høysommerdager += 1
-
-                if maks_temp > 30:
-                    tropedager += 1 
-
-
-# Finner lengste sammenhengende periode uten nedbør
-
-lengste_periode = 0
-gjeldende_periode = 0
-
-lengste_start = None
-lengste_slutt = None
-
-gjeldende_start = None
-
-for i in range(len(datoer)):
-
-    if nedbør[i] == 0:
-        if gjeldende_periode == 0:
-            gjeldende_start = datoer[i]
-
-        gjeldende_periode += 1
-
-        if gjeldende_periode > lengste_periode:
-            lengste_periode = gjeldende_periode
-            lengste_start = gjeldende_start
-            lengste_slutt = datoer[i]
-
-    else:
-        gjeldende_periode = 0
-        gjeldende_start = None
-
-
-print("Lengste periode uten nedbør:")
-print("Lengde:", lengste_periode, "dager")
-print("Startdato:", lengste_start.strftime("%d.%m.%Y"))
-print("Sluttdato:", lengste_slutt.strftime("%d.%m.%Y"))
-
-print("Antall sommerdager:", sommerdager)
-print("Antall høysommerdager:", høysommerdager)
-print("Antall tropedager:", tropedager)
-
-# Lager fire grafer
 plt.figure(figsize=(12, 8))
 
 plt.subplot(4, 1, 1)
