@@ -32,9 +32,9 @@ def les_data(filnavn):
 def plantevekst(datoer, temperaturer, aar):
     """Summerer (temperatur - 5) for alle dager i året med temperatur over 5 grader."""
     total = 0
-    # zip lar oss gå gjennom dato og temperatur samtidig
+    # zip går gjennom dato og temperatur samtidig
     for dato, temp in zip(datoer, temperaturer):
-        # dato.year gir årstallet; vi hopper over dager uten måling
+        # dato.year gir årstallet; hopper over dager uten måling
         if dato.year == aar and temp is not None and temp > MIN_TEMP:
             total += temp - MIN_TEMP  # veksten denne dagen
     return total
